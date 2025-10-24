@@ -1,8 +1,6 @@
 # Library Management System (SQL + Python)
 
-A simple **relational** library DB built on **SQLite** with a small Python query layer + CLI.
-Kept intentionally straightforward (college-student level) but correct: proper FKs, indexes, and
-a basic checkout/return flow with due dates and overdue reporting.
+Relational Library Management System built with Python and SQLite. Includes schema design, entity relations, and SQL queries for search, checkout, and returns.
 
 ## Tech
 - **DB**: SQLite (SQL DDL in `schema.sql`, seed data in `seed.sql`)
@@ -35,40 +33,31 @@ The DB file `library.db` is created in the project root.
 
 ---
 
-## Schema (ER snapshot)
+## Schema
 
-- **books(id, isbn, title, published_year)**
-- **authors(id, name)**
-- **book_authors(book_id, author_id)**  ← M:N bridge
-- **patrons(id, name, email)**
-- **book_copies(id, book_id, barcode)**  ← physical copies
-- **loans(id, copy_id, patron_id, checkout_at, due_at, returned_at)**
+- books(id, isbn, title, published_year)
+- authors(id, name)
+- book_authors(book_id, author_id)  
+- patrons(id, name, email)
+- book_copies(id, book_id, barcode)  
+- loans(id, copy_id, patron_id, checkout_at, due_at, returned_at)
 
 **Rules**
 - A loan exists only for a valid patron + copy (FKs).
-- A copy is *available* when it has **no active loan** (returned_at IS NULL).
+- A copy is available when it has no active loan (returned_at IS NULL).
 - Checkout sets `checkout_at=now`, `due_at=now + 14 days` (configurable in `app.py`).
 
----
-
-## What to show recruiters
-- Clean SQL DDL with keys + indexes (`src/schema.sql`).
-- Parameterized queries (no string concat) in `src/db.py`.
-- Clear functions: `search_books`, `checkout_book`, `return_copy`, `list_overdue`, etc.
-- Small tests in `tests/test_smoke.py`.
-
----
 
 ## Files
 ```
 src/
-  app.py          # CLI + entry points
-  db.py           # DB helpers / query layer
-  schema.sql      # DDL
-  seed.sql        # Starter data
-  queries.sql     # Reference queries (study aid)
+  app.py          
+  db.py           
+  schema.sql      
+  seed.sql        
+  queries.sql     
 tests/
-  test_smoke.py   # tiny smoke check
+  test_smoke.py   
 requirements.txt
 README.md
 ```
