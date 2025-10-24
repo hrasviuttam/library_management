@@ -7,31 +7,6 @@ Relational Library Management System built with Python and SQLite. Includes sche
 - **Python**: `sqlite3` stdlib for queries, small CLI in `app.py`
 - **Tables**: `books`, `authors`, `book_authors` (M:N), `patrons`, `book_copies`, `loans`
 
----
-
-## Quick Start
-
-```bash
-python -m venv .venv
-# Windows: .venv\Scripts\activate
-source .venv/bin/activate
-pip install -r requirements.txt
-
-# Initialize database (creates library.db and seeds data)
-python src/app.py --init
-
-# Try the CLI
-python src/app.py --help
-python src/app.py search --q "harry"
-python src/app.py checkout --patron 1 --book 3
-python src/app.py return --barcode CPY-0005
-python src/app.py overdue
-python src/app.py whohas --barcode CPY-0005
-```
-
-The DB file `library.db` is created in the project root.
-
----
 
 ## Schema
 
